@@ -1,5 +1,8 @@
-//selecting add button
+//creatung a variable to store to - do list 
+const taskList = [];
 
+
+//selecting add button
 const addBtn = document.querySelector('#form-btn');
 
 //listen to click event in the button 
@@ -9,35 +12,85 @@ addBtn.addEventListener("click", () => {
     const taskName = document.querySelector(".task-input").value;
     //select hour input and get value 
     const taskHour = document.querySelector(".hrs-input").value;
-    console.log(taskHour, taskName)
+    // console.log(taskHour, taskName)\
 
-    //addding the above to do list to the table 
-    const tableBody = document.querySelector("#task-list");
-    //create each table row with td datas 
-    //create seperate function to append each table row 
-    //call function -pass the table row
-    //add the to do list to the table body
-   const newTodoTask = document.createElement("tr")
-   newTodoTask.innerHTML =  `
-    <tr>
-    <td> 1 </td>
-    <td> ${taskName} 
-    <td> ${taskHour} </td>
-    <td class = "text-end"> 
-        <button class = "btn btn-danger">
-            <i class="fa-solid fa-trash">
-            </i>
-        </button>
-    <button class = "btn btn-success">
-    <i class="fa-solid fa-right-long"></i>
-    </button>
-</td>
-    </tr>`
-    addRow(newTodoTask)
 
+// <-------------Task Object ----------------->
+    //Create each task object 
+const task = {
+    name: taskName,
+    hour: taskHour
+}
+//push the task object to the task list array
+taskList.push(task);
+displayTask();
 })
 
-const addRow = (tableRow)=> {
+//Loop over the task list and create eac table row 
+const displayTask = () => {
+    let tableRows = "";
+    taskList.forEach((task, index) => {
+        console.log(task)
+        const todoRow = `
+        <tr>
+        <td> ${index + 1}  </td>
+        <td> ${task.name} 
+        <td> ${task.hour} </td>
+        <td class = "text-end"> 
+            <button class = "btn btn-danger">
+                <i class="fa-solid fa-trash">
+                </i>
+            </button>
+        <button class = "btn btn-success">
+        <i class="fa-solid fa-right-long"></i>
+        </button>
+    </td>
+        </tr>`
+
+        tableRows = tableRows + todoRow;
+            
+    });
+    console.log(tableRows);
+
     const tableBody = document.querySelector("#task-list");
-    tableBody.appendChild(tableRow);
+    tableBody.innerHTML = tableRows;
+
+    const addRow = (tableRows)=> {
+    const tableBody = document.querySelector("#task-list");
+    tableBody.appendChild(tableRows);
 }
+
+}
+
+
+//     //addding the above to do list to the table 
+//     const tableBody = document.querySelector("#task-list");
+//     //create each table row with td datas 
+//     //create seperate function to append each table row 
+//     //call function -pass the table row
+//     //add the to do list to the table body
+// //    const newTodoTask = document.createElement("tr")
+// //    newTodoTask.innerHTML =  `
+// //     <tr>
+// //     <td> 1 </td>
+// //     <td> ${taskName} 
+// //     <td> ${taskHour} </td>
+// //     <td class = "text-end"> 
+// //         <button class = "btn btn-danger">
+// //             <i class="fa-solid fa-trash">
+// //             </i>
+// //         </button>
+// //     <button class = "btn btn-success">
+// //     <i class="fa-solid fa-right-long"></i>
+// //     </button>
+// // </td>
+// //     </tr>`
+// //     addRow(newTodoTask)
+
+// // })
+
+// const addRow = (tableRow)=> {
+//     const tableBody = document.querySelector("#task-list");
+//     tableBody.appendChild(tableRow);
+// }
+
