@@ -1,5 +1,5 @@
 //creatung a variable to store to - do list 
-const taskList = [];
+let taskList = [];
 
 
 //selecting add button
@@ -37,8 +37,8 @@ const displayTask = () => {
         <td> ${task.name} 
         <td> ${task.hour} </td>
         <td class = "text-end"> 
-            <button class = "btn btn-danger">
-                <i class="fa-solid fa-trash">
+        <button onclick ="deleteTask(${index})" class = "btn btn-danger">
+        <i class="fa-solid fa-trash">
                 </i>
             </button>
         <button class = "btn btn-success">
@@ -50,7 +50,6 @@ const displayTask = () => {
         tableRows = tableRows + todoRow;
             
     });
-    console.log(tableRows);
 
     const tableBody = document.querySelector("#task-list");
     tableBody.innerHTML = tableRows;
@@ -61,6 +60,21 @@ const displayTask = () => {
 }
 
 }
+
+// <===============Delete  task ==================>
+const deleteTask = (index) =>{
+    taskList = taskList.filter((task, i) => i  !== index);
+
+    displayTask();
+}
+// .
+// .
+// .
+
+// .
+// .
+
+// <===============Different way ==================>
 
 
 //     //addding the above to do list to the table 
