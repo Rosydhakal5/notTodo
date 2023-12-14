@@ -13,9 +13,12 @@ addBtn.addEventListener("click", () => {
 
     //addding the above to do list to the table 
     const tableBody = document.querySelector("#task-list");
-    
+    //create each table row with td datas 
+    //create seperate function to append each table row 
+    //call function -pass the table row
     //add the to do list to the table body
-    tableBody.innerHTML = `
+   const newTodoTask = document.createElement("tr")
+   newTodoTask.innerHTML =  `
     <tr>
     <td> 1 </td>
     <td> ${taskName} 
@@ -29,14 +32,12 @@ addBtn.addEventListener("click", () => {
     <i class="fa-solid fa-right-long"></i>
     </button>
 </td>
-    </tr>
-     
-     
-     `
-
-
-
-
-
+    </tr>`
+    addRow(newTodoTask)
 
 })
+
+const addRow = (tableRow)=> {
+    const tableBody = document.querySelector("#task-list");
+    tableBody.appendChild(tableRow);
+}
