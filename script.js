@@ -1,6 +1,11 @@
 //creatung a variable to store to - do list 
 let taskList = [];
 
+let badTaskList = [{
+    name: "study",
+    hours: 5
+}];
+
 
 //selecting add button
 const addBtn = document.querySelector('#form-btn');
@@ -41,9 +46,16 @@ const displayTask = () => {
         <i class="fa-solid fa-trash">
                 </i>
             </button>
-        <button class = "btn btn-success">
+
+
+        <button class = "btn btn-success"> 
         <i class="fa-solid fa-right-long"></i>
         </button>
+
+
+
+
+
     </td>
         </tr>`
 
@@ -61,18 +73,73 @@ const displayTask = () => {
 
 }
 
-// <===============Delete  task ==================>
-const deleteTask = (index) =>{
+  // <===============Delete  task ==================>
+  const deleteTask = (index) =>{
     taskList = taskList.filter((task, i) => i  !== index);
 
     displayTask();
 }
+const switchToBadTask = (index) => {
+    const badTask = taskList[index];
+    badTaskList.push(badTask);
+    displayBadTask();
+    deleteTask(index);
+}
+
+
+const displayBadTask = () => {
+    let tableRows = "";
+    badtaskList.forEach((task, index) => {
+        console.log(task)
+        const todoRow = `
+        <tr>
+        <td> ${index + 1}  </td>
+        <td> ${task.name} 
+        <td> ${task.hour} </td>
+        <td class = "text-end"> 
+        <button onclick ="deleteTask(${index})" class = "btn btn-danger">
+        <i class="fa-solid fa-trash">
+                </i>
+            </button>
+
+
+        <button class = "btn btn-success"> 
+        <i class="fa-solid fa-right-long"></i>
+        </button>
+
+    </td>
+    </tr>`
+
+        tableRows = tableRows + todoRow;
+            
+    });
+
+  
+
+    const tableBody = document.querySelector("#bad-task");
+    tableBody.innerHTML = tableRows;
+
+}
+
+
+
+
+
+
+
 // .
 // .
 // .
 
 // .
 // .
+
+
+
+
+
+
+
 
 // <===============Different way ==================>
 
@@ -107,4 +174,12 @@ const deleteTask = (index) =>{
 //     const tableBody = document.querySelector("#task-list");
 //     tableBody.appendChild(tableRow);
 // }
+
+
+
+//reset input field on submit 
+//dont add the to do task again 
+//switch back to entry list from bad list 
+//total bad list task hour s
+//total hour -entry +bad list 
 
