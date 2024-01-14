@@ -1,185 +1,127 @@
-//creatung a variable to store to - do list 
+// get form data on form submit
+// store data in a global array
+// create a display function to display all the data from array to entry list
+
+// create variable to store to-do lists
 let taskList = [];
 
-let badTaskList = [{
-    name: "study",
-    hours: 5
-}];
+let badTaskList = [];
 
+// const taskList = [
+//   {
+//     name: 'Study',
+//     hours: 5
+//   },
+//   {
+//     name: 'Code',
+//     hours: 3
+//   }
+// ];
 
-//selecting add button
+// add button select
 const addBtn = document.querySelector('#form-btn');
 
-//listen to click event in the button 
-addBtn.addEventListener("click", () => {
-    event.preventDefault(); //removing ?task which is preventing to show in console
-    //select taskName and get value 
-    const taskName = document.querySelector(".task-input").value;
-    //select hour input and get value 
-    const taskHour = document.querySelector(".hrs-input").value;
-    // console.log(taskHour, taskName)\
+// listen to click event in the button
+addBtn.addEventListener('click', (event) => {
+  event.preventDefault();
 
+  // select taskName and get value
+  const taskName = document.querySelector('.task-input').value;
 
-// <-------------Task Object ----------------->
-    //Create each task object 
-const task = {
+  // select hours input and get value
+  const taskHour = document.querySelector('.hrs-input').value;
+
+  // create each task object
+  const task = {
     name: taskName,
-    hour: taskHour
-}
-//push the task object to the task list array
-taskList.push(task);
-displayTask();
-})
+    hour: taskHour,
+  };
 
-//Loop over the task list and create eac table row 
-const displayTask = () => {
-    let tableRows = "";
-    taskList.forEach((task, index) => {
-        console.log(task)
-        const todoRow = `
-        <tr>
-        <td> ${index + 1}  </td>
-        <td> ${task.name} 
-        <td> ${task.hour} </td>
-        <td class = "text-end"> 
-        <button onclick ="deleteTask(${index})" class = "btn btn-danger">
-        <i class="fa-solid fa-trash">
-                </i>
-            </button>
+  // push the task object to the task list array
+  taskList.push(task);
 
+  // display tasks
+  displayTasks();
+});
 
-        <button class = "btn btn-success"> 
-        <i class="fa-solid fa-right-long"></i>
-        </button>
+const displayTasks = () => {
+  let tableRows = '';
+  // loop over the task list and create each table row
+  taskList.forEach((task, index) => {
+    const todoRow = `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${task.name}</td>
+        <td>${task.hour}</td>
+        <td class="text-end">
+          <button onclick="deleteTask(${index})" class="btn btn-danger">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button onclick="switchToBadTask(${index})" class="btn btn-success">
+            <i class="fa-solid fa-right-long"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+    tableRows = tableRows + todoRow;
+  });
 
-
-
-
-
-    </td>
-        </tr>`
-
-        tableRows = tableRows + todoRow;
-            
-    });
-
-    const tableBody = document.querySelector("#task-list");
-    tableBody.innerHTML = tableRows;
-
-    const addRow = (tableRows)=> {
-    const tableBody = document.querySelector("#task-list");
-    tableBody.appendChild(tableRows);
+  const tableBody = document.querySelector('#task-list');
+   
+  // add the to-do list to the table body
+   tableBody.innerHTML = tableRows;
 }
 
+// delete -
+
+const deleteTask = (index) => {
+  // remove the todo from taskList array using index
+  taskList = taskList.filter((task, i) => i !== index);
+  // display tasks again
+  displayTasks();
 }
 
-  // <===============Delete  task ==================>
-  const deleteTask = (index) =>{
-    taskList = taskList.filter((task, i) => i  !== index);
-
-    displayTask();
-}
 const switchToBadTask = (index) => {
-    const badTask = taskList[index];
-    badTaskList.push(badTask);
-    displayBadTask();
-    deleteTask(index);
+  const badTask = taskList[index];
+  badTaskList.push(badTask);
+  displayBadTasks();
+  deleteTask(index);
 }
 
+const displayBadTasks = () => {
+  let tableRows = '';
+  // loop over the task list and create each table row
+  badTaskList.forEach((task, index) => {
+    const todoRow = `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${task.name}</td>
+        <td>${task.hour}</td>
+        <td class="text-end">
+          <button onclick="deleteTask(${index})" class="btn btn-danger">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <button class="btn btn-success">
+            <i class="fa-solid fa-right-long"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+    tableRows = tableRows + todoRow;
+  });
 
-const displayBadTask = () => {
-    let tableRows = "";
-    badtaskList.forEach((task, index) => {
-        console.log(task)
-        const todoRow = `
-        <tr>
-        <td> ${index + 1}  </td>
-        <td> ${task.name} 
-        <td> ${task.hour} </td>
-        <td class = "text-end"> 
-        <button onclick ="deleteTask(${index})" class = "btn btn-danger">
-        <i class="fa-solid fa-trash">
-                </i>
-            </button>
-
-
-        <button class = "btn btn-success"> 
-        <i class="fa-solid fa-right-long"></i>
-        </button>
-
-    </td>
-    </tr>`
-
-        tableRows = tableRows + todoRow;
-            
-    });
-
-  
-
-    const tableBody = document.querySelector("#bad-task");
-    tableBody.innerHTML = tableRows;
-
+  const tableBody = document.querySelector('#bad-task');
+  // add the to-do list to the table body
+   tableBody.innerHTML = tableRows;
 }
 
+displayBadTasks();
 
+// reset input fields on submit
+// don't add the to do task again
+// switch back to entry list from bad list
+// total bad list task hours
 
-
-
-
-
-// .
-// .
-// .
-
-// .
-// .
-
-
-
-
-
-
-
-
-// <===============Different way ==================>
-
-
-//     //addding the above to do list to the table 
-//     const tableBody = document.querySelector("#task-list");
-//     //create each table row with td datas 
-//     //create seperate function to append each table row 
-//     //call function -pass the table row
-//     //add the to do list to the table body
-// //    const newTodoTask = document.createElement("tr")
-// //    newTodoTask.innerHTML =  `
-// //     <tr>
-// //     <td> 1 </td>
-// //     <td> ${taskName} 
-// //     <td> ${taskHour} </td>
-// //     <td class = "text-end"> 
-// //         <button class = "btn btn-danger">
-// //             <i class="fa-solid fa-trash">
-// //             </i>
-// //         </button>
-// //     <button class = "btn btn-success">
-// //     <i class="fa-solid fa-right-long"></i>
-// //     </button>
-// // </td>
-// //     </tr>`
-// //     addRow(newTodoTask)
-
-// // })
-
-// const addRow = (tableRow)=> {
-//     const tableBody = document.querySelector("#task-list");
-//     tableBody.appendChild(tableRow);
-// }
-
-
-
-//reset input field on submit 
-//dont add the to do task again 
-//switch back to entry list from bad list 
-//total bad list task hour s
-//total hour -entry +bad list 
-
+// total hours - enty + bad list
+// total hours shouldn't be more than (24*7) hours - 168
+// checked in the button click
